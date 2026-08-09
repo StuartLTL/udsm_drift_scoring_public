@@ -1,15 +1,21 @@
-# UDSM Drift Scoring — Releases
+# CHAPPiE — Releases
 
-Signed `.ksm` builds of the **UDSM Drift Scoring** mod for *CarX Drift Racing Online*.
+Signed `.ksm` builds of **CHAPPiE**, a tournament-grade drift judging mod for *CarX Drift Racing Online*.
 
-UDSM is a tournament-grade drift judging mod: depth-zone line scoring, per-zone angle ranges, automatic deduction tracking (wall taps, missed clipping points, off-course, overshoot, excessive braking), live tandem-battle countdown via the lamp post, lobby-synced scoreboard, and a host-controlled qualifying / battle workflow.
+**📖 Full documentation: [chappie.online](https://chappie.online)**
+
+Depth-zone line scoring, per-zone angle ranges, automatic deduction tracking (wall taps, missed clipping points, off-course, overshoot, excessive braking), live countdown on the start lights, lobby-synced scoreboard, judge review, CSV results, and a host-controlled qualifying workflow.
+
+> Formerly published as **UDSM Drift Scoring**. Same mod, same repository — the
+> download keeps the filename `UDSMDriftScoring.ksm` so existing installs and
+> links continue to work.
 
 ---
 
 ## Install
 
 1. Make sure you have **[KSL (Kino Script Loader)](https://github.com/Kinomod/KSL)** installed and working.
-2. Download `UDSMDriftScoring.ksm` from this repository (or from the **Releases** page).
+2. Download `UDSMDriftScoring.ksm` from this repository, or from [chappie.online](https://chappie.online), which always serves the current build with its size and SHA-256.
 3. Copy it into:
    ```
    <CarX install>\kino\mods\
@@ -18,17 +24,34 @@ UDSM is a tournament-grade drift judging mod: depth-zone line scoring, per-zone 
    ```
    C:\Program Files (x86)\Steam\steamapps\common\CarX Drift Racing Online\kino\mods\
    ```
-4. Launch CarX. The UDSM tile will appear in the KSL launcher (look for the U/D/S/M logo).
+   If the game is on another drive, look for the `SteamLibrary` folder there instead.
+4. Launch CarX. The **CHAPPiE** tile appears in the KSL launcher.
+
+Everyone in a session should run the **same build**. Mixed versions silently break lobby features such as the shared scoreboard and the start-box lock.
+
+---
+
+## Documentation
+
+| | |
+|---|---|
+| [Getting started](https://chappie.online/getting-started) | Install, roles, running a session |
+| [Track authoring](https://chappie.online/tutorials/) | Maya/Blender → Unity → Kino, end to end |
+| [Naming contract](https://chappie.online/reference/naming-contract) | The GameObject names the mod reads |
+| [Scoring model](https://chappie.online/reference/scoring-model) | How a run becomes a number |
+| [DQ and deduction rules](https://chappie.online/reference/dq-rules) | Thresholds, with config keys |
 
 ---
 
 ## Track authoring
 
-To author tracks compatible with UDSM you'll need the SDK components. Grab them from:
+To author tracks compatible with CHAPPiE you'll need the SDK components:
 
-➡ **[udsm_drift_scoring_sdk](https://github.com/StuartLTL/udsm_drift_scoring_sdk)**
+➡ **[udsm_drift_scoring_sdk](https://github.com/StuartLTL/udsm_drift_scoring_sdk)** — or download the SDK zip from [chappie.online](https://chappie.online)
 
-Drop the `UDSM_SDK/` folder into your Unity track project under `Assets/`, then mark zones, walls, off-track meshes, the start lights, etc. via **Add Component → UDSM/...**
+Drop the `UDSM_SDK/` folder into your Unity track project under `Assets/`, then mark zones, off-track meshes, the start lights and the run lines via **Add Component → UDSM/...**
+
+Full walkthrough: [chappie.online/tutorials](https://chappie.online/tutorials/)
 
 ---
 
@@ -42,9 +65,17 @@ Drop the `UDSM_SDK/` folder into your Unity track project under `Assets/`, then 
 ## Reporting issues
 
 Open an issue in this repository with:
-- KSL version
-- CarX game version
-- The relevant slice of `kino\output.log` (the file `output.log` next to the mods folder, lines beginning `[UDSM ...]`)
+
+- KSL version and CarX game version
+- **`debug.log`**, found next to the mod's own data at:
+  ```
+  <CarX install>\kino\mods\CHAPPiE\debug.log
+  ```
+
+That file is the first place to look for anything. It records the zone and
+special-line scan on every scene load, role changes with their reason, every
+score received, and **every DQ with the values that triggered it** — which is
+usually enough to explain a result on its own.
 
 ---
 
